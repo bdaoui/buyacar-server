@@ -20,7 +20,7 @@ router.get("/cars", (req,res) => {
 router.post("/cars", isAuthenticated, uploadCloud.single("image"), (req, res) => {
     console.log("Posting New Car")
 
-    const {name, model, make, mileage, price, description, bestDeal} = req.body;
+    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
     const image = req.file.path;
 
     if (!req.file) {
@@ -29,7 +29,7 @@ router.post("/cars", isAuthenticated, uploadCloud.single("image"), (req, res) =>
     }
 
 
-    Cars.create({name, model, make, mileage, price, description, bestDeal, image})
+    Cars.create({name, model, make, mileage, price, description, bestDeal, gearbox, image})
         .then(response => res.status(200).json({message: "new car"}))
 })
 

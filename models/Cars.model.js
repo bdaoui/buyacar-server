@@ -5,12 +5,12 @@ const carsSchema  = new Schema({
     name: String,
     model: String,
     make: String,
-    image: String,
+    image: String, 
+    gearbox: String,
     mileage: Number,
     price: Number,
     description: String,
     bestDeal: {Boolean, default:"false"}
-
 })
 
 
