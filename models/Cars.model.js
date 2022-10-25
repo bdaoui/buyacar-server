@@ -5,7 +5,7 @@ const carsSchema  = new Schema({
     make: String,
     model: String,
     image: [String], 
-    gearbox: String,
+    transmission: String,
     mileage: Number,
     price: Number,
     description: String,
