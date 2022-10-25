@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { restart } = require("nodemon");
 const uploadCloud = require("../cloudinary");
-const { isAuthenticated } = require("../jwt.middleware");
+const { isAuthenticated } = require("../jwt");
 
 const Cars = require('../models/Cars.model')
 
@@ -98,3 +98,6 @@ router.delete("/:id", (req, res) => {
         .then(response => res.status(200).json("Item Deleted"))
         .catch(err => console.log(err))
 })
+
+
+module.exports = router;
