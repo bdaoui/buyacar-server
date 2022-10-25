@@ -27,11 +27,11 @@ router.post("/cars", uploadCloud.single("image"), (req, res) => {
         return;
     }
 
-    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    const {model, make, mileage, price, description, bestDeal, gearbox} = req.body;
     const image = req.file.path;
 
 
-    Cars.create({name, model, make, mileage, price, description, bestDeal, gearbox, image})
+    Cars.create({model, make, mileage, price, description, bestDeal, gearbox, image})
         .then(response => res.status(200).json({message: "new car"}))
 })
 
@@ -66,7 +66,7 @@ router.put("/:id", (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
-    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    const {model, make, mileage, price, description, bestDeal, gearbox} = req.body;
     let check ={}; 
 
     Cars.findById(id)
@@ -74,7 +74,6 @@ router.put("/:id", (req, res) => {
         .catch(err => console.log(err )) 
 
 
-    name ? name : check.name;
     model ? model : check.model;
     make ? make : check.make;
     mileage ? mileage : check.mileage;
@@ -84,7 +83,7 @@ router.put("/:id", (req, res) => {
     gearbox ? gearbox : check.gearbox;
 
 
-    Cars.findByIdAndUpdate(id, {name: setName, model, make, mileage, price, description, bestDeal, gearbox})
+    Cars.findByIdAndUpdate(id, { model, make, mileage, price, description, bestDeal, gearbox})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
