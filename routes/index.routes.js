@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { restart } = require("nodemon");
 const uploadCloud = require("../cloudinary");
 const { isAuthenticated } = require("../jwt.middleware");
 
@@ -36,7 +37,6 @@ router.post("/cars", isAuthenticated, uploadCloud.single("image"), (req, res) =>
 
 
 // BestDeal 
-
 router.get("/bestDeals", (req, res) => {
     console.log("Requesting Best Deals")
 
@@ -47,7 +47,7 @@ router.get("/bestDeals", (req, res) => {
 })
 
 
-
+// Find Specific Car
 router.get('/:id', (req, res) => {
     console.log("Getting Chosen Item")
 
@@ -59,9 +59,42 @@ router.get('/:id', (req, res) => {
 
 })
 
+// Edit Specific Car
+
+router.put("/:id", (req, res) => {
+    console.log("Modifying Chosen Item")
+
+    const {id} = req.params;
+    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    let check ={}; 
+
+    Cars.findById(id)
+        .then(response => check = response)
+        .catch(err => console.log(err )) 
 
 
-// Update, Delete, Change, Specific Page 
+    name ? name : check.name;
+    model ? model : check.model;
+    make ? make : check.make;
+    mileage ? mileage : check.mileage;
+    price ? price : check.price;
+    description ? description : check.description;
+    bestDeal ? bestDeal : check.bestDeal;
+    gearbox ? gearbox : check.gearbox;
 
 
-router.delete("/")
+    Cars.findByIdAndUpdate(id, {name: setName, model, make, mileage, price, description, bestDeal, gearbox})
+        .then(response => res.status(200).json("Item Modified"))
+        .catch(err => console.log(err))
+})
+
+
+// Delete
+
+router.delete("/:id", (req, res) => {
+    console.log("Deleting Chosen Item")
+
+    Cars.deleteOne({_id: id})
+        .then(response => res.status(200).json("Item Deleted"))
+        .catch(err => console.log(err))
+})
