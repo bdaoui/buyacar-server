@@ -18,16 +18,17 @@ router.get("/cars", (req,res) => {
 })
 
 
-router.post("/cars", isAuthenticated, uploadCloud.single("image"), (req, res) => {
+router.post("/cars", uploadCloud.single("image"), (req, res) => {
     console.log("Posting New Car")
-
-    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
-    const image = req.file.path;
+    console.log(req.body, req.file)
 
     if (!req.file) {
         next(new Error("No file uploaded!"));
         return;
     }
+
+    const {name, model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    const image = req.file.path;
 
 
     Cars.create({name, model, make, mileage, price, description, bestDeal, gearbox, image})
