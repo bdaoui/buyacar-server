@@ -27,11 +27,11 @@ router.post("/cars", uploadCloud.single("image"), (req, res) => {
         return;
     }
 
-    const {model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    const {model, make, mileage, price, description, bestDeal, transmission} = req.body;
     const image = req.file.path;
 
 
-    Cars.create({model, make, mileage, price, description, bestDeal, gearbox, image})
+    Cars.create({model, make, mileage, price, description, bestDeal, transmission, image})
         .then(response => res.status(200).json({message: "new car"}))
 })
 
@@ -66,7 +66,7 @@ router.put("/:id", (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
-    const {model, make, mileage, price, description, bestDeal, gearbox} = req.body;
+    const {model, make, mileage, price, description, bestDeal, transmission} = req.body;
     let check ={}; 
 
     Cars.findById(id)
@@ -80,10 +80,10 @@ router.put("/:id", (req, res) => {
     price ? price : check.price;
     description ? description : check.description;
     bestDeal ? bestDeal : check.bestDeal;
-    gearbox ? gearbox : check.gearbox;
+    transmission ? transmission : check.transmission;
 
 
-    Cars.findByIdAndUpdate(id, { model, make, mileage, price, description, bestDeal, gearbox})
+    Cars.findByIdAndUpdate(id, { model, make, mileage, price, description, bestDeal, transmission})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
