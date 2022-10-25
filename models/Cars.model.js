@@ -10,7 +10,7 @@ const carsSchema  = new Schema({
     mileage: Number,
     price: Number,
     description: String,
-    bestDeal: {Boolean, default:"false"}
+    bestDeal: {Boolean, default: false}
 })
 
 
