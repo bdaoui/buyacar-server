@@ -34,6 +34,9 @@ router.post("/cars", isAuthenticated, uploadCloud.single("image"), (req, res) =>
 })
 
 
+
+// BestDeal 
+
 router.get("/bestDeals", (req, res) => {
     console.log("Requesting Best Deals")
 
