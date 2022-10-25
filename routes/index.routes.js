@@ -9,10 +9,10 @@ router.get("/cars", (req,res) => {
     console.log("Requesting Car List")
 
     Cars.find()
-        .then(response => res.status(200).json(response)
+        .then(response => res.status(200).json(response))
         .catch(err => console.log(err))
         
-        )
+        
 
 })
 
@@ -41,7 +41,27 @@ router.get("/bestDeals", (req, res) => {
     console.log("Requesting Best Deals")
 
     Cars.find({bestDeals: true})
-        .then(response => res.status(200).json(response)
+        .then(response => res.status(200).json(response))
         .catch(err => console.log(err))
-        )
+        
 })
+
+
+
+router.get('/:id', (req, res) => {
+    console.log("Getting Chosen Item")
+
+    const {id} = req.params;
+
+    Cars.findById(id)
+        .then(response => res.status(200).json(response))
+        .catch(err => console.log(err))
+
+})
+
+
+
+// Update, Delete, Change, Specific Page 
+
+
+router.delete("/")
