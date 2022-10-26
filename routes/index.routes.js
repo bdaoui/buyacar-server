@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 
     const {id} = req.params;
 
-    Cars.findById(id)
+    Cars.findById({_id :id})
         .then(response => res.status(200).json(response))
         .catch(err => console.log(err))
 
