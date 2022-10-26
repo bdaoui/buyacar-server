@@ -18,7 +18,7 @@ router.get("/cars", (req,res) => {
 })
 
 
-router.post("/cars", uploadCloud.array("image"), (req, res) => {
+router.post("/cars", uploadCloud.array("image"), (req, res, next) => {
     console.log("Posting New Car")
     console.log(req.body, req.file)
 
@@ -27,11 +27,11 @@ router.post("/cars", uploadCloud.array("image"), (req, res) => {
         return;
     }
 
-    const {model, make, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
-    const image = req.file.path;
+    const {model, image, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    // const image = req.file.path;
 
 
-    Cars.create({model, make, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
+    Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
         .then(response => res.status(200).json({message: "new car"}))
 })
 
@@ -66,7 +66,7 @@ router.put("/:id", (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
-    const {model, make, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
     let check ={}; 
 
     Cars.findById(id)
@@ -81,14 +81,15 @@ router.put("/:id", (req, res) => {
     color ? color : check.color;
     body ? body : check.body;
     seats ? seats : check.seats;
-    doors ? doors : check.door;
+    doors ? doors : check.doors;
+    engine ? engine : check.engine;
     fuel ? fuel : check.fuel;
     description ? description : check.description;
     bestDeal ? bestDeal : check.bestDeal;
     transmission ? transmission : check.transmission;
 
 
-    Cars.findByIdAndUpdate(id, { model, make, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission})
+    Cars.findByIdAndUpdate(id, { model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
