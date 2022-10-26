@@ -4,17 +4,17 @@ const { Schema, model } = require("mongoose")
 const carsSchema  = new Schema({
     make: String,
     model: String,
+    price: Number,
     image: [String], 
+    mileage: Number,
     color: String,
     fuel: String,
     seats: Number,
     doors: Number,
-    bodyType: String,
+    body: String,
     transmission: {type: Boolean, default: true},
-    mileage: Number,
-    price: Number,
-    description: String,
-    bestDeal: {type: Boolean, default: false}
+    bestDeal: {type: Boolean, default: false},
+    description: String
 })
 
 
