@@ -18,7 +18,7 @@ router.get("/cars", (req,res) => {
 })
 
 
-router.post("/cars", uploadCloud.single("image"), (req, res) => {
+router.post("/cars", uploadCloud.array("image"), (req, res) => {
     console.log("Posting New Car")
     console.log(req.body, req.file)
 
