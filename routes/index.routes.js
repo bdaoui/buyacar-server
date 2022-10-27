@@ -18,7 +18,7 @@ router.get("/cars", (req,res) => {
 })
 
 
-router.post("/cars", uploadCloud.array("image"), (req, res, next) => {
+router.post("/cars", uploadCloud.single("image"), (req, res, next) => {
     console.log("Posting New Car")
     console.log(req.body, req.file)
 
@@ -27,9 +27,8 @@ router.post("/cars", uploadCloud.array("image"), (req, res, next) => {
         return;
     }
 
-    const {model, image, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
-    // const image = req.file.path;
-
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+     const image = req.file
 
     Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
         .then(response => res.status(200).json({message: "new car"}))
@@ -54,7 +53,7 @@ router.get('/:id', (req, res) => {
 
     const {id} = req.params;
 
-    Cars.findById(id)
+    Cars.findById({_id :id})
         .then(response => res.status(200).json(response))
         .catch(err => console.log(err))
 
