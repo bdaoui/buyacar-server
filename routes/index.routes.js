@@ -30,7 +30,6 @@ router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
     const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
      const image = req.files.map( i => i.path)
 
-     console.log("This are the paths", image)
 
     Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
         .then(response => res.status(200).json({message: "new car"}))
@@ -63,11 +62,17 @@ router.get('/:id', (req, res) => {
 
 // Edit Specific Car
 
-router.put("/:id", (req, res) => {
+router.put("/:id", uploadCloud.array("image", 10), (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
     const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    
+    
+    const image = req.files? req.files.map( i => i.path) : null;
+
+    console.log("this is the id ", id)
+
     let check ={}; 
 
     Cars.findById(id)
