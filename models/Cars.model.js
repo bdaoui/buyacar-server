@@ -13,8 +13,8 @@ const carsSchema  = new Schema({
     doors: Number,
     body: String,
     engine: String,
-    transmission: {type: Boolean, default: true},
-    bestDeal: {type: Boolean, default: false},
+    transmission: String,
+    bestDeal: String,
     description: String
 })
 

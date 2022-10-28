@@ -62,40 +62,46 @@ router.get('/:id', (req, res) => {
 
 // Edit Specific Car
 
-router.put("/:id", uploadCloud.array("image", 10), (req, res) => {
+router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
     const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
     
+ 
     
     const image = req.files? req.files.map( i => i.path) : null;
 
-    console.log("this is the id ", id)
 
     let check ={}; 
+    let validModel, validMake, validMileage, validPrice, validColor, validBody, validSeats, validDoors, validEngine, validFuel, validDescription, validBestDeal, validTransmission;
 
-    Cars.findById(id)
-        .then(response => check = response)
+    await Cars.findById(id)
+        .then(response => {check = response
+        
+            validModel = model ? model : check.model;
+            validMake = make ? make : check.make;
+            validMileage = mileage ? mileage : check.mileage;
+            validPrice = price ? price : check.price;
+            validColor = color ? color : check.color;
+            validBody = body ? body : check.body;
+            validSeats = seats ? seats : check.seats;
+            validDoors = doors ? doors : check.doors;
+            validEngine = engine ? engine : check.engine;
+            validFuel = fuel ? fuel : check.fuel;
+            validDescription = description ? description : check.description;
+            validBestDeal = bestDeal ? bestDeal : check.bestDeal;
+            validTransmission = transmission ? transmission : check.transmission;     
+
+
+        })
         .catch(err => console.log(err )) 
 
 
-    model ? model : check.model;
-    make ? make : check.make;
-    mileage ? mileage : check.mileage;
-    price ? price : check.price;
-    color ? color : check.color;
-    body ? body : check.body;
-    seats ? seats : check.seats;
-    doors ? doors : check.doors;
-    engine ? engine : check.engine;
-    fuel ? fuel : check.fuel;
-    description ? description : check.description;
-    bestDeal ? bestDeal : check.bestDeal;
-    transmission ? transmission : check.transmission;
+    
 
 
-    Cars.findByIdAndUpdate(id, { model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission})
+    Cars.findByIdAndUpdate(id, {model: validModel, make: validMake, mileage: validMileage, engine : validEngine, price : validPrice, fuel : validFuel, color : validColor, doors :validDoors, seats: validSeats, body: validBody, bestDeal: validBestDeal, transmission: validTransmission, description: validDescription})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
