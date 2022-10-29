@@ -14,6 +14,7 @@ const carsSchema  = new Schema({
     body: String,
     engine: String,
     transmission: String,
+    year: Number,
     bestDeal: String,
     description: String
 })

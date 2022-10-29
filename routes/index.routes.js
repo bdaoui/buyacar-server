@@ -27,11 +27,11 @@ router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
         return;
     }
 
-    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission, year} = req.body;
      const image = req.files.map( i => i.path)
 
 
-    Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
+    Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image, year})
         .then(response => res.status(200).json({message: "new car"}))
 })
 
@@ -66,7 +66,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
-    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission, year} = req.body;
     
  
     
@@ -74,7 +74,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 
 
     let check ={}; 
-    let validModel, validMake, validMileage, validPrice, validColor, validBody, validSeats, validDoors, validEngine, validFuel, validDescription, validBestDeal, validTransmission;
+    let validModel, validMake, validMileage, validPrice, validColor, validBody, validSeats, validDoors, validEngine, validFuel, validDescription, validBestDeal, validTransmission, validYear;
 
     await Cars.findById(id)
         .then(response => {check = response
@@ -92,6 +92,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
             validDescription = description ? description : check.description;
             validBestDeal = bestDeal ? bestDeal : check.bestDeal;
             validTransmission = transmission ? transmission : check.transmission;     
+            validYear = year ? year : check.year;     
 
 
         })
@@ -101,7 +102,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     
 
 
-    Cars.findByIdAndUpdate(id, {model: validModel, make: validMake, mileage: validMileage, engine : validEngine, price : validPrice, fuel : validFuel, color : validColor, doors :validDoors, seats: validSeats, body: validBody, bestDeal: validBestDeal, transmission: validTransmission, description: validDescription})
+    Cars.findByIdAndUpdate(id, {model: validModel, make: validMake, mileage: validMileage, engine : validEngine, price : validPrice, fuel : validFuel, color : validColor, doors :validDoors, seats: validSeats, body: validBody, bestDeal: validBestDeal, year: validYear, transmission: validTransmission, description: validDescription})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
