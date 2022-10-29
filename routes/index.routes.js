@@ -4,6 +4,8 @@ const uploadCloud = require("../cloudinary");
 const { isAuthenticated } = require("../jwt");
 
 const Cars = require('../models/Cars.model')
+const Admin = require('../models/Admin.model')
+const Testimonial = require('../models/Testimonial.model')
 
 
 router.get("/cars", (req,res) => {
