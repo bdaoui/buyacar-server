@@ -118,4 +118,16 @@ router.delete("/:id", (req, res) => {
 })
 
 
+// Testimonial Get
+
+router.get("/testimonial", (req, res) => {
+    console.log("Requesting All Testimonial")
+
+    Cars.find()
+        .then(response => res.status(200).json(response))
+        .catch(err => console.log(err))
+        
+})
+
+
 module.exports = router;
