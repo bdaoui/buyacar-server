@@ -124,10 +124,12 @@ router.delete("/:id", (req, res) => {
 
  // Delete Image from Car Object
 
-router.post("/:id/:image", (req, res) => {
+router.put("/:id/image", (req, res) => {
     console.log("Deleting Chosen Image")
 
-    const {id, image} = req.params;
+    const {id} = req.params;
+    const {image} = req.body
+
     let filteredImages;
     // cars object
     // image array
