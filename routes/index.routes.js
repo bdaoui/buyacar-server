@@ -105,6 +105,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
   } = req.body;
 
   const image = req.files ? req.files.map((i) => i.path) : null;
+  console.log(image)
 
   let check = {};
   let validModel,
@@ -121,6 +122,8 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     validBestDeal,
     validTransmission,
     validYear;
+
+    let validImage = []
 
   await Cars.findById(id)
     .then((response) => {
@@ -140,6 +143,8 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
       validBestDeal = bestDeal ? bestDeal : check.bestDeal;
       validTransmission = transmission ? transmission : check.transmission;
       validYear = year ? year : check.year;
+      image ? image.map(i => check.image.push(i)) : check.image;
+
     })
     .catch((err) => console.log(err));
 
@@ -158,6 +163,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     year: validYear,
     transmission: validTransmission,
     description: validDescription,
+    image: check.image
   })
     .then((response) => res.status(200).json("Item Modified"))
     .catch((err) => console.log(err));
@@ -183,7 +189,7 @@ router.put("/:id/:image", async (req, res) => {
   const { id } = req.params;
   const obj = JSON.parse(JSON.stringify(req.body));
   //req.body is a object null prototype.
-  //parse n strinfigy first to convert to string
+  //parse n stringify first to convert to string
   //then uses object.keys to extract string value of the key which is image url
   console.log(Object.keys(obj));
   let filteredImages = [];
