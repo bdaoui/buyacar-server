@@ -4,6 +4,8 @@ const uploadCloud = require("../cloudinary");
 const { isAuthenticated } = require("../jwt");
 
 const Cars = require('../models/Cars.model')
+const Admin = require('../models/Admin.model')
+const Testimonial = require('../models/Testimonial.model')
 
 
 router.get("/cars", (req,res) => {
@@ -27,11 +29,11 @@ router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
         return;
     }
 
-    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission, year} = req.body;
      const image = req.files.map( i => i.path)
 
 
-    Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image})
+    Cars.create({model, make, engine, mileage, price, fuel, color, doors, seats, body, description, bestDeal, transmission, image, year})
         .then(response => res.status(200).json({message: "new car"}))
 })
 
@@ -66,7 +68,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     console.log("Modifying Chosen Item")
 
     const {id} = req.params;
-    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission} = req.body;
+    const {model, make, mileage, engine, price, fuel, color, doors, seats, body, description, bestDeal, transmission, year} = req.body;
     
  
     
@@ -74,7 +76,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 
 
     let check ={}; 
-    let validModel, validMake, validMileage, validPrice, validColor, validBody, validSeats, validDoors, validEngine, validFuel, validDescription, validBestDeal, validTransmission;
+    let validModel, validMake, validMileage, validPrice, validColor, validBody, validSeats, validDoors, validEngine, validFuel, validDescription, validBestDeal, validTransmission, validYear;
 
     await Cars.findById(id)
         .then(response => {check = response
@@ -92,6 +94,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
             validDescription = description ? description : check.description;
             validBestDeal = bestDeal ? bestDeal : check.bestDeal;
             validTransmission = transmission ? transmission : check.transmission;     
+            validYear = year ? year : check.year;     
 
 
         })
@@ -101,7 +104,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     
 
 
-    Cars.findByIdAndUpdate(id, {model: validModel, make: validMake, mileage: validMileage, engine : validEngine, price : validPrice, fuel : validFuel, color : validColor, doors :validDoors, seats: validSeats, body: validBody, bestDeal: validBestDeal, transmission: validTransmission, description: validDescription})
+    Cars.findByIdAndUpdate(id, {model: validModel, make: validMake, mileage: validMileage, engine : validEngine, price : validPrice, fuel : validFuel, color : validColor, doors :validDoors, seats: validSeats, body: validBody, bestDeal: validBestDeal, year: validYear, transmission: validTransmission, description: validDescription})
         .then(response => res.status(200).json("Item Modified"))
         .catch(err => console.log(err))
 })
@@ -111,11 +114,55 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 
 router.delete("/:id", (req, res) => {
     console.log("Deleting Chosen Item")
+<<<<<<< HEAD
     const {id} = req.params;
     
+=======
+
+    const {id} = req.params;
+
+>>>>>>> 3fab46f677d3495a811b7a175c72dbc57f48de98
     Cars.deleteOne({_id: id})
         .then(response => res.status(200).json("Item Deleted"))
         .catch(err => console.log(err))
+})
+
+ // Delete Image from Car Object
+
+router.put("/:id/image", (req, res) => {
+    console.log("Deleting Chosen Image")
+
+    const {id} = req.params;
+    const {image} = req.body
+
+    let filteredImages;
+    // cars object
+    // image array
+    // image 
+    // array - image 
+
+    Cars.findById(id)
+        .then(response => {
+            filteredImages = response.image.filter(item => item != image)
+        })
+        .catch(err => console.log(err))
+
+    Cars.findByIdAndUpdate({_id:id},{image: filteredImages} )
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+})
+
+
+
+// Testimonial Get
+
+router.get("/testimonial", (req, res) => {
+    console.log("Requesting All Testimonial")
+
+    Cars.find()
+        .then(response => res.status(200).json(response))
+        .catch(err => console.log(err))
+        
 })
 
 
