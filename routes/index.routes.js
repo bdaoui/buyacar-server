@@ -111,7 +111,8 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 
 router.delete("/:id", (req, res) => {
     console.log("Deleting Chosen Item")
-
+    const {id} = req.params;
+    
     Cars.deleteOne({_id: id})
         .then(response => res.status(200).json("Item Deleted"))
         .catch(err => console.log(err))
