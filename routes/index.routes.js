@@ -124,26 +124,25 @@ router.delete("/:id", (req, res) => {
 
  // Delete Image from Car Object
 
-router.put("/:id/image", (req, res) => {
+router.put("/:id/:image", async (req, res) => {
     console.log("Deleting Chosen Image")
 
     const {id} = req.params;
-    const {image} = req.body
+    const obj = JSON.parse(JSON.stringify(req.body));
+    //req.body is a object null prototype. 
+    //parse n strinfigy first to convert to string
+    //then uses object.keys to extract string value of the key which is image url
+    console.log(Object.keys(obj))
+    let filteredImages = [];
 
-    let filteredImages;
-    // cars object
-    // image array
-    // image 
-    // array - image 
-
-    Cars.findById(id)
+    await Cars.findById(id)
         .then(response => {
-            filteredImages = response.image.filter(item => item != image)
+            filteredImages = response.image.filter(item => item != Object.keys(obj))
         })
         .catch(err => console.log(err))
 
-    Cars.findByIdAndUpdate({_id:id},{image: filteredImages} )
-        .then(response => console.log(response))
+    Cars.updateOne({_id: id}, {image: filteredImages} )
+        .then(response => res.status(200).json("Image Deleted"))
         .catch(err => console.log(err))
 })
 
