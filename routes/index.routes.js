@@ -115,10 +115,36 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 router.delete("/:id", (req, res) => {
     console.log("Deleting Chosen Item")
 
+    const {id} = req.params;
+
     Cars.deleteOne({_id: id})
         .then(response => res.status(200).json("Item Deleted"))
         .catch(err => console.log(err))
 })
+
+ // Delete Image from Car Object
+
+router.post("/:id/:image", (req, res) => {
+    console.log("Deleting Chosen Image")
+
+    const {id, image} = req.params;
+    let filteredImages;
+    // cars object
+    // image array
+    // image 
+    // array - image 
+
+    Cars.findById(id)
+        .then(response => {
+            filteredImages = response.image.filter(item => item != image)
+        })
+        .catch(err => console.log(err))
+
+    Cars.findByIdAndUpdate({_id:id},{image: filteredImages} )
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+})
+
 
 
 // Testimonial Get
