@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose")
 
-
 const carsSchema  = new Schema({
     make: String,
     model: String,
@@ -18,7 +17,6 @@ const carsSchema  = new Schema({
     bestDeal: String,
     description: String
 })
-
 
 const Cars = model("Cars", carsSchema);
 module.exports = Cars;
