@@ -17,7 +17,6 @@ router.get("/cars", (req, res) => {
 
 router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
   console.log("Posting New Car");
-  console.log(req.body, req.files);
 
   if (!req.files) {
     next(new Error("No file uploaded!"));
@@ -103,9 +102,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     transmission,
     year,
   } = req.body;
-
   const image = req.files ? req.files.map((i) => i.path) : null;
-  console.log(image)
 
   let check = {};
   let validModel,
@@ -122,8 +119,6 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     validBestDeal,
     validTransmission,
     validYear;
-
-    let validImage = []
 
   await Cars.findById(id)
     .then((response) => {
@@ -188,10 +183,11 @@ router.put("/:id/:image", async (req, res) => {
 
   const { id } = req.params;
   const obj = JSON.parse(JSON.stringify(req.body));
+  
   //req.body is a object null prototype.
   //parse n stringify first to convert to string
   //then uses object.keys to extract string value of the key which is image url
-  console.log(Object.keys(obj));
+  
   let filteredImages = [];
 
   await Cars.findById(id)
