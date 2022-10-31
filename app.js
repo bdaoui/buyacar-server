@@ -14,27 +14,25 @@ require("dotenv/config");
 // ℹ️ Connects to the database
 require("./db");
 
-
 // ℹ️ Needed to accept from requests from 'the outside'. CORS stands for cross origin resource sharing
 // unless the request if from the same domain, by default express wont accept POST requests
 const cors = require("cors");
 
- // Because this is a server that will accept requests from outside and it will be hosted ona server with a `proxy`, express needs to know that it should trust that setting.
-  // Services like heroku use something called a proxy and you need to add this to your server
-  app.set("trust proxy", 1);
+// Because this is a server that will accept requests from outside and it will be hosted ona server with a `proxy`, express needs to know that it should trust that setting.
+// Services like heroku use something called a proxy and you need to add this to your server
+app.set("trust proxy", 1);
 
-  // controls a very specific header to pass headers from the frontend
-  app.use(
-    cors({
-      credentials: true,
-      origin: process.env.ORIGIN || "http://localhost:3000",
-    })
-  );
+// controls a very specific header to pass headers from the frontend
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.ORIGIN || "http://localhost:3000",
+  })
+);
 
-  // To have access to `body` property in the request
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-
+// To have access to `body` property in the request
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
@@ -44,33 +42,7 @@ app.use("/api", allRoutes);
 const adminRoutes = require("./routes/admin.routes");
 app.use("/admin", adminRoutes);
 
-
 module.exports = app;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on port http://localhost:${PORT}`);
