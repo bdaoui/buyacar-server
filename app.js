@@ -33,7 +33,7 @@ const cors = require("cors");
 
   // To have access to `body` property in the request
   app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: true }));
 
 
 // 👇 Start handling routes here
