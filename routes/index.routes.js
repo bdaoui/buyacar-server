@@ -178,7 +178,7 @@ router.delete("/:id", (req, res) => {
 
 // Delete Image from Car Object
 
-router.put("/:id/:image", async (req, res) => {
+router.put("/:id/image", async (req, res) => {
   console.log("Deleting Chosen Image");
 
   const { id } = req.params;
@@ -200,6 +200,17 @@ router.put("/:id/:image", async (req, res) => {
 
   Cars.updateOne({ _id: id }, { image: filteredImages })
     .then((response) => res.status(200).json("Image Deleted"))
+    .catch((err) => console.log(err));
+});
+
+//Delete All Image from Car
+router.put("/:id/all", (req, res) => {
+  console.log("Deleting All Images");
+  const { id } = req.params;
+  emptyArray = []
+
+  Cars.updateOne({ _id: id }, { image: emptyArray })
+    .then((response) => res.status(200).json("Images Deleted"))
     .catch((err) => console.log(err));
 });
 
