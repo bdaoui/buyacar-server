@@ -14,7 +14,7 @@ router.get("/cars", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.post("/cars", isAuthenticated, uploadCloud.array("image", 10), (req, res, next) => {
+router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
   console.log("Posting New Car");
 
   if (!req.files) {
@@ -81,7 +81,7 @@ router.get("/:id", (req, res) => {
 
 // Edit Specific Car
 
-router.put("/:id", isAuthenticated, uploadCloud.array("image", 10), async (req, res) => {
+router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
   console.log("Modifying Chosen Item");
 
   const { id } = req.params;
@@ -165,8 +165,8 @@ router.put("/:id", isAuthenticated, uploadCloud.array("image", 10), async (req, 
 
 // Delete
 
-router.delete("/:id", isAuthenticated, (req, res) => {
-  console.log("Deleting Chosen Item");
+router.delete("/:id", (req, res) => {
+  console.log("Deleting Chosen Car");
 
   const { id } = req.params;
 
@@ -177,7 +177,7 @@ router.delete("/:id", isAuthenticated, (req, res) => {
 
 // Delete Image from Car Object
 
-router.put("/:id/image", isAuthenticated, async (req, res) => {
+router.put("/:id/image", async (req, res) => {
   console.log("Deleting Chosen Image");
 
   const { id } = req.params;
@@ -203,7 +203,7 @@ router.put("/:id/image", isAuthenticated, async (req, res) => {
 });
 
 //Delete All Image from Car
-router.put("/:id/all", isAuthenticated, (req, res) => {
+router.put("/:id/all", (req, res) => {
   console.log("Deleting All Images");
   const { id } = req.params;
   emptyArray = []
@@ -214,12 +214,44 @@ router.put("/:id/all", isAuthenticated, (req, res) => {
 });
 
 // Testimonial Get
-
 router.get("/testimonial", (req, res) => {
   console.log("Requesting All Testimonial");
 
-  Cars.find()
+  Testimonial.find()
     .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
+});
+
+//Testimonial post
+router.post("/testimonial",  (req, res) => {
+  console.log("Creating A Testimonial");
+  const {body, author} = req.body
+
+  Testimonial.create({author, body})
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
+});
+
+//Testiomonial Edit
+router.put("/testimonial/:id",  (req, res) => {
+  console.log("Editing Testimonial");
+
+  const {id} = req.params
+  const {author, body} = req.body
+
+  Testimonial.findByIdAndUpdate({_id: id}, {author : author, body : body})
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
+});
+
+//Delete a Testimonial
+router.delete("/testimonial/:id",  (req, res) => {
+  console.log("Deleting Chosen Testimonial");
+
+  const { id } = req.params;
+
+  Testimonial.deleteOne({ _id: id })
+    .then((response) => res.status(200).json("Item Deleted"))
     .catch((err) => console.log(err));
 });
 
