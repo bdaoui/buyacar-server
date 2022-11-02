@@ -69,7 +69,7 @@ router.get("/bestDeals", (req, res) => {
 });
 
 // Find Specific Car
-router.get("/:id", (req, res) => {
+router.get("/car/:id", (req, res) => {
   console.log("Getting Chosen Item");
 
   const { id } = req.params;
@@ -233,13 +233,24 @@ router.post("/testimonial",  (req, res) => {
 });
 
 //Testiomonial Edit
-router.put("/testimonial/:id",  (req, res) => {
+router.put("/testimonial/:id", async (req, res) => {
   console.log("Editing Testimonial");
 
   const {id} = req.params
   const {author, body} = req.body
+  
+  let validBody, validAuthor;
 
-  Testimonial.findByIdAndUpdate({_id: id}, {author : author, body : body})
+  await Testimonial.findById(id)
+    .then((response) => {
+      check = response;
+
+      validAuthor = author ? author : check.author;
+      validBody = body ? body : check.body;
+    })
+    .catch(err => console.log(err))
+
+  Testimonial.findByIdAndUpdate( id, {author : validAuthor, body : validBody})
     .then((response) => res.status(200).json(response))
     .catch((err) => console.log(err));
 });
