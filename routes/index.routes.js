@@ -267,6 +267,15 @@ router.delete("/testimonial/:id",  (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// Contact Get
+router.get("/contact", (req, res) => {
+  console.log("Requesting All Messages");
+
+  ContactForm.find()
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
+});
+
 //Post Contact Form
 router.post("/contact", (req, res) =>{
   console.log("Sending a Message")
