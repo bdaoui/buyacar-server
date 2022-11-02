@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { restart } = require("nodemon");
 const uploadCloud = require("../cloudinary");
 const { isAuthenticated } = require("../jwt");
-
 const Cars = require("../models/Cars.model");
 const Admin = require("../models/Admin.model");
 const Testimonial = require("../models/Testimonial.model");
@@ -15,7 +14,7 @@ router.get("/cars", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
+router.post("/cars", isAuthenticated, uploadCloud.array("image", 10), (req, res, next) => {
   console.log("Posting New Car");
 
   if (!req.files) {
@@ -82,7 +81,7 @@ router.get("/:id", (req, res) => {
 
 // Edit Specific Car
 
-router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
+router.put("/:id", isAuthenticated, uploadCloud.array("image", 10), async (req, res) => {
   console.log("Modifying Chosen Item");
 
   const { id } = req.params;
@@ -166,7 +165,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
 
 // Delete
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isAuthenticated, (req, res) => {
   console.log("Deleting Chosen Item");
 
   const { id } = req.params;
@@ -178,7 +177,7 @@ router.delete("/:id", (req, res) => {
 
 // Delete Image from Car Object
 
-router.put("/:id/image", async (req, res) => {
+router.put("/:id/image", isAuthenticated, async (req, res) => {
   console.log("Deleting Chosen Image");
 
   const { id } = req.params;
@@ -204,7 +203,7 @@ router.put("/:id/image", async (req, res) => {
 });
 
 //Delete All Image from Car
-router.put("/:id/all", (req, res) => {
+router.put("/:id/all", isAuthenticated, (req, res) => {
   console.log("Deleting All Images");
   const { id } = req.params;
   emptyArray = []
