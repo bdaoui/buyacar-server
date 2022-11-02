@@ -5,6 +5,7 @@ const { isAuthenticated } = require("../jwt");
 const Cars = require("../models/Cars.model");
 const Admin = require("../models/Admin.model");
 const Testimonial = require("../models/Testimonial.model");
+const ContactForm = require("../models/ContactForm.model");
 
 router.get("/cars", (req, res) => {
   console.log("Requesting Car List");
@@ -265,5 +266,30 @@ router.delete("/testimonial/:id",  (req, res) => {
     .then((response) => res.status(200).json("Item Deleted"))
     .catch((err) => console.log(err));
 });
+
+//Post Contact Form
+router.post("/contact", (req, res) =>{
+  console.log("Sending a Message")
+
+  const { contactName,
+      contactLastName,
+      contactEmail,
+      contactPhone,
+      contactSubject,
+      contactMessage} = req.body;
+
+  ContactForm.create(     
+      {
+          name: contactName,
+          lastName: contactLastName,
+          email: contactEmail,
+          phone: contactPhone,
+          subject: contactSubject,
+          message: contactMessage
+      }
+  )
+  .then(response => res.status(200).json("Message Sent!"))
+  .catch(err => console.log(err))
+})
 
 module.exports = router;
