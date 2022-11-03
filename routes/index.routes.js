@@ -138,8 +138,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
       validBestDeal = bestDeal ? bestDeal : check.bestDeal;
       validTransmission = transmission ? transmission : check.transmission;
       validYear = year ? year : check.year;
-      image ? image.map(i => check.image.push(i)) : check.image;
-
+      image ? image.map((i) => check.image.push(i)) : check.image;
     })
     .catch((err) => console.log(err));
 
@@ -158,7 +157,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     year: validYear,
     transmission: validTransmission,
     description: validDescription,
-    image: check.image
+    image: check.image,
   })
     .then((response) => res.status(200).json("Item Modified"))
     .catch((err) => console.log(err));
@@ -183,11 +182,11 @@ router.put("/:id/image", async (req, res) => {
 
   const { id } = req.params;
   const obj = JSON.parse(JSON.stringify(req.body));
-  
+
   //req.body is a object null prototype.
   //parse n stringify first to convert to string
   //then uses object.keys to extract string value of the key which is image url
-  
+
   let filteredImages = [];
 
   await Cars.findById(id)
@@ -207,7 +206,7 @@ router.put("/:id/image", async (req, res) => {
 router.put("/:id/all", (req, res) => {
   console.log("Deleting All Images");
   const { id } = req.params;
-  emptyArray = []
+  emptyArray = [];
 
   Cars.updateOne({ _id: id }, { image: emptyArray })
     .then((response) => res.status(200).json("Images Deleted"))
@@ -224,11 +223,11 @@ router.get("/testimonial", (req, res) => {
 });
 
 //Testimonial post
-router.post("/testimonial",  (req, res) => {
+router.post("/testimonial", (req, res) => {
   console.log("Creating A Testimonial");
-  const {body, author} = req.body
+  const { body, author } = req.body;
 
-  Testimonial.create({author, body})
+  Testimonial.create({ author, body })
     .then((response) => res.status(200).json(response))
     .catch((err) => console.log(err));
 });
@@ -237,9 +236,9 @@ router.post("/testimonial",  (req, res) => {
 router.put("/testimonial/:id", async (req, res) => {
   console.log("Editing Testimonial");
 
-  const {id} = req.params
-  const {author, body} = req.body
-  
+  const { id } = req.params;
+  const { author, body } = req.body;
+
   let validBody, validAuthor;
 
   await Testimonial.findById(id)
@@ -249,15 +248,15 @@ router.put("/testimonial/:id", async (req, res) => {
       validAuthor = author ? author : check.author;
       validBody = body ? body : check.body;
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err));
 
-  Testimonial.findByIdAndUpdate( id, {author : validAuthor, body : validBody})
+  Testimonial.findByIdAndUpdate(id, { author: validAuthor, body: validBody })
     .then((response) => res.status(200).json(response))
     .catch((err) => console.log(err));
 });
 
 //Delete a Testimonial
-router.delete("/testimonial/:id",  (req, res) => {
+router.delete("/testimonial/:id", (req, res) => {
   console.log("Deleting Chosen Testimonial");
 
   const { id } = req.params;
@@ -277,43 +276,48 @@ router.get("/contact", (req, res) => {
 });
 
 //Post Contact Form
-router.post("/contact", (req, res) =>{
-  console.log("Sending a Message")
+router.post("/contact", (req, res) => {
+  console.log("Sending a Message");
 
-  const { contactName,
-      contactLastName,
-      contactEmail,
-      contactPhone,
-      contactSubject,
-      contactMessage} = req.body;
+  const {
+    contactName,
+    contactLastName,
+    contactEmail,
+    contactPhone,
+    contactSubject,
+    contactMessage,
+  } = req.body;
 
-  ContactForm.create(     
-      {
-          name: contactName,
-          lastName: contactLastName,
-          email: contactEmail,
-          phone: contactPhone,
-          subject: contactSubject,
-          message: contactMessage
-      }
-  )
-  .then(response => res.status(200).json("Message Sent!"))
-  .catch(err => console.log(err))
-})
+  ContactForm.create({
+    name: contactName,
+    lastName: contactLastName,
+    email: contactEmail,
+    phone: contactPhone,
+    subject: contactSubject,
+    message: contactMessage,
+  })
+    .then((response) => res.status(200).json("Message Sent!"))
+    .catch((err) => console.log(err));
+});
 
 //Set Contact Status
-router.put("/contact/:id", (req, res) => {
+router.put("/contact/:id", async (req, res) => {
   console.log("Editing Message Status");
-  const {id} = req.params
-  const {status} = req.body
+  const { id } = req.params;
+  const obj = JSON.parse(JSON.stringify(req.body));
+  let stringStatus = Object.keys(obj)
+  let booleanStatus = await stringStatus == 'read' ? true : false
 
-  ContactForm.findByIdAndUpdate(id, {status: !status})
-  .then(response => res.status(200).json(response))
-  .catch(err => console.log(err))
-})
+  console.log(booleanStatus, 'change')
+  console.log(typeof stringStatus, 'string')
+
+  ContactForm.findByIdAndUpdate(id, { status: booleanStatus })
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
+});
 
 //Delete Contact
-router.delete("/contact/:id",  (req, res) => {
+router.delete("/contact/:id", (req, res) => {
   console.log("Deleting Chosen Contact");
 
   const { id } = req.params;

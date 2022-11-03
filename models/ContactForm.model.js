@@ -12,7 +12,6 @@ const contactFormSchema = new Schema({
     message: String,
     status: {
         type: Boolean,
-        required: true,
         default: false
     }
 })
