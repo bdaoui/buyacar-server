@@ -42,14 +42,14 @@ app.use("/api", allRoutes);
 const adminRoutes = require("./routes/admin.routes");
 app.use("/admin", adminRoutes);
 
-const carRoutes = require("./routes/car.routes");
-app.use("/car", carRoutes);
+// const carRoutes = require("./routes/car.routes");
+// app.use("/car", carRoutes);
 
-const contactRoutes = require("./routes/contact.routes");
-app.use("/contact", contactRoutes);
+// const contactRoutes = require("./routes/contact.routes");
+// app.use("/contact", contactRoutes);
 
-const testimonialRoutes = require("./routes/testimonial.routes");
-app.use("/testimonial", testimonialRoutes);
+// const testimonialRoutes = require("./routes/testimonial.routes");
+// app.use("/testimonial", testimonialRoutes);
 
 module.exports = app;
 
