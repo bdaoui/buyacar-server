@@ -159,7 +159,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     description: validDescription,
     image: check.image,
   })
-    .then((response) => res.status(200).json("Item Modified"))
+    .then((response) => res.status(200).json("Voiture modifiée"))
     .catch((err) => console.log(err));
 });
 
@@ -209,7 +209,7 @@ router.put("/:id/all", (req, res) => {
   emptyArray = [];
 
   Cars.updateOne({ _id: id }, { image: emptyArray })
-    .then((response) => res.status(200).json("Images Deleted"))
+    .then((response) => res.status(200).json("All Images Deleted"))
     .catch((err) => console.log(err));
 });
 
@@ -303,13 +303,11 @@ router.post("/contact", (req, res) => {
 //Set Contact Status
 router.put("/contact/:id", async (req, res) => {
   console.log("Editing Message Status");
+  
   const { id } = req.params;
   const obj = JSON.parse(JSON.stringify(req.body));
   let stringStatus = Object.keys(obj)
   let booleanStatus = await stringStatus == 'read' ? true : false
-
-  console.log(booleanStatus, 'change')
-  console.log(typeof stringStatus, 'string')
 
   ContactForm.findByIdAndUpdate(id, { status: booleanStatus })
     .then((response) => res.status(200).json(response))
