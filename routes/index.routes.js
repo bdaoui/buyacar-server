@@ -301,4 +301,25 @@ router.post("/contact", (req, res) =>{
   .catch(err => console.log(err))
 })
 
+//Set Contact Status
+router.put("/contact/:id", (req, res) => {
+  console.log("Editing Message Status");
+  const {id} = req.params
+  const {status} = req.body
+
+  ContactForm.findByIdAndUpdate(id, {status: !status})
+  .then(response => res.status(200).json(response))
+  .catch(err => console.log(err))
+})
+
+//Delete Contact
+router.delete("/contact/:id",  (req, res) => {
+  console.log("Deleting Chosen Contact");
+
+  const { id } = req.params;
+
+  ContactForm.deleteOne({ _id: id })
+    .then((response) => res.status(200).json("Item Deleted"))
+    .catch((err) => console.log(err));
+});
 module.exports = router;

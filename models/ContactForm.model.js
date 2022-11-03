@@ -11,10 +11,9 @@ const contactFormSchema = new Schema({
     },
     message: String,
     status: {
-        type: String,
-        enum:["unread","read"],
+        type: Boolean,
         required: true,
-        default: "unread"
+        default: false
     }
 })
 
