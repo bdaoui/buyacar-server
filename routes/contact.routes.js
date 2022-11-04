@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
   
   //Post Contact Form
   router.post("/", (req, res) => {
-    console.log("Sending a Message");
+    console.log("Sending Message");
   
     const {
       contactName,
@@ -33,7 +33,34 @@ router.get("/", (req, res) => {
       subject: contactSubject,
       message: contactMessage,
     })
-      .then((response) => res.status(200).json("Message Sent!"))
+      .then((response) => res.status(200).json("Envoi Du Message!"))
+      .catch((err) => console.log(err));
+  });
+
+   //Post Contact Form For Single Car
+   router.post("/car", (req, res) => {
+    console.log("Sending Message");
+    console.log(req.body.contactSubject)
+
+    const {
+      contactName,
+      contactLastName,
+      contactEmail,
+      contactPhone,
+      contactSubject,
+      contactMessage,
+    } = req.body;
+  
+    ContactForm.create({
+      name: contactName,
+      lastName: contactLastName,
+      email: contactEmail,
+      phone: contactPhone,
+      subject: contactSubject,
+      message: contactMessage,
+      direct: true
+    })
+      .then((response) => res.status(200).json("Envoi Du Message!"))
       .catch((err) => console.log(err));
   });
   
