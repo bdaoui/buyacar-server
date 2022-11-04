@@ -136,11 +136,14 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
         validSeats = seats ? seats : check.seats;
         validDoors = doors ? doors : check.doors;
         validEngine = engine ? engine : check.engine;
-        validFuel = fuel ? fuel : check.fuel;
         validDescription = description ? description : check.description;
         validBestDeal = bestDeal ? bestDeal : check.bestDeal;
-        validTransmission = transmission ? transmission : check.transmission;
         validYear = year ? year : check.year;
+        
+        validFuel = fuel ? fuel : check.fuel;
+        validTransmission = transmission ? transmission : check.transmission;
+       
+        
         image ? image.map((i) => check.image.push(i)) : check.image;
       })
       .catch((err) => console.log(err));
