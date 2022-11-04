@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
       .catch((err) => console.log(err));
   });
   
-  router.post("/cars", uploadCloud.array("image", 10), (req, res, next) => {
+  router.post("/", uploadCloud.array("image", 10), (req, res, next) => {
     console.log("Posting New Car");
   
     if (!req.files) {

@@ -13,6 +13,10 @@ const contactFormSchema = new Schema({
     status: {
         type: Boolean,
         default: false
+    },
+    direct: {
+        type: Boolean,
+        default: false
     }
 })
 
