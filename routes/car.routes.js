@@ -61,10 +61,10 @@ router.get("/", (req, res) => {
   });
   
   // Get All BestDeal
-  router.get("/bestDeals", (req, res) => {
+  router.get("/bestdeals", (req, res) => {
     console.log("Requesting Best Deals");
   
-    Cars.find({ bestDeals: true })
+    Cars.find({ bestDeal: "yes" })
       .then((response) => res.status(200).json(response))
       .catch((err) => console.log(err));
   });
