@@ -47,7 +47,7 @@ router.get("/", (req, res) => {
       contactLastName,
       contactEmail,
       contactPhone,
-      contactSubject,
+      messageCar,
       contactMessage,
     } = req.body;
   
@@ -56,7 +56,7 @@ router.get("/", (req, res) => {
       lastName: contactLastName,
       email: contactEmail,
       phone: contactPhone,
-      subject: contactSubject,
+      subject: messageCar,
       message: contactMessage,
       direct: true
     })
