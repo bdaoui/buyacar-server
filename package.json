@@ -7,16 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Bidz42/buyacar-server.git"
-  },
-  "author": "",
+  "author": "Bidz42",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Bidz42/buyacar-server/issues"
-  },
-  "homepage": "https://github.com/Bidz42/buyacar-server#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
