@@ -53,4 +53,15 @@ router.get("/number", (req, res) => {
 
 })
 
+router.put("/number", (req, res) => {
+  "Editing Number for Admin"
+
+  Admin.updateOne({}, {number: number})
+  .then(response  => res.status(200).json("Admin Number Changed")
+    
+    )
+})
+
+
+
 module.exports = router;
