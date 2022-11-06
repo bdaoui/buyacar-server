@@ -11,7 +11,7 @@ router.post("/login", (req, res) => {
   console.log(req.body)
 
   if (identifier === "" || password === "") {
-    res.status(400).json({ message: "Provide an email and password" });
+    res.status(400).json("Données incorrectes");
     return;
   }
 
@@ -19,7 +19,7 @@ router.post("/login", (req, res) => {
     .then((loginUser) => {
       console.log(loginUser)
       if (!loginUser) {
-        res.status(400).json({ message: "User not found." });
+        res.status(400).json("Données incorrectes");
         return;
       }
       const passedPassword = bcrypt.compareSync(password, loginUser.password);
@@ -31,13 +31,12 @@ router.post("/login", (req, res) => {
           algorithm: "HS256",
           expiresIn: "2h",
         });
-        console.log(authToken)
-        res.status(200).json({ authToken: authToken });
+        res.status(200).json("Se connecter...");
       } else {
-        res.status(401).json({ message: "Cannot authenticate the user" });
+        res.status(400).json("Données incorrectes");
       }
     })
-    .catch((err) => res.status(500).json({ message: "Server Error" }));
+    .catch((err) => res.status(500).json("Server Error"));
 });
 
 router.get("/verify", (req, res) => {

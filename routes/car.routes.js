@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const uploadCloud = require("../config/cloudinary.config");
-const { isAuthenticated } = require("../jwt");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Cars = require("../models/Cars.model");
 
 

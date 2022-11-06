@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { isAuthenticated } = require("../jwt");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 const ContactForm = require("../models/ContactForm.model");
 
 
