@@ -43,4 +43,14 @@ router.get("/verify", (req, res) => {
   res.status(200).json(req.payload);
 });
 
+
+router.get("/number", (req, res) => {
+  'Getting Number for Admin'
+  
+  Admin.find()
+    .then(response => response.number)
+    .catch(err => console.log(err))
+
+})
+
 module.exports = router;
