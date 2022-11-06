@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
-const Testimonial = require("../models/testimonial.model");
+const Testimonial = require("../models/Testimonial.model");
 
 
 // Testimonial Get
