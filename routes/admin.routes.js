@@ -44,6 +44,9 @@ router.get("/verify", (req, res) => {
 });
 
 
+// Display and Change the Number in Footer
+
+
 router.get("/number", (req, res) => {
   'Getting Number for Admin'
   
@@ -59,7 +62,7 @@ router.put("/number", (req, res) => {
   Admin.updateOne({}, {number: number})
   .then(response  => res.status(200).json("Admin Number Changed") )
   .catch(err => console.log(err))
-  
+
 })
 
 
