@@ -57,7 +57,7 @@ router.get("/", (req, res) => {
       transmission,
       image,
       year,
-    }).then((response) => res.status(200).json({ message: "new car" }));
+    }).then((response) => res.status(200).json("Voiture Créer"));
   });
   
   // Get All BestDeal

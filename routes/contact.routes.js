@@ -49,6 +49,7 @@ router.get("/", (req, res) => {
       contactPhone,
       messageCar,
       contactMessage,
+      carId,
     } = req.body;
   
     ContactForm.create({
@@ -58,7 +59,8 @@ router.get("/", (req, res) => {
       phone: contactPhone,
       subject: messageCar,
       message: contactMessage,
-      direct: true
+      direct: true,
+      carId : carId
     })
       .then((response) => res.status(200).json("Envoi Du Message!"))
       .catch((err) => console.log(err));

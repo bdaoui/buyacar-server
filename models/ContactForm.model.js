@@ -17,7 +17,12 @@ const contactFormSchema = new Schema({
     direct: {
         type: Boolean,
         default: false
+    },
+    carId: {
+        type: String,
+        default: null
     }
+
 })
 
 const ContactForm = model("ContactForm", contactFormSchema)
