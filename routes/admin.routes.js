@@ -71,7 +71,7 @@ router.put("/number", (req, res) => {
     )
   .then(response  => {
     console.log(response)
-    res.status(200).json("Admin Number Changed")})
+    res.status(200).json("Numero modifiée")})
   .catch(err => console.log(err))
 
 })
