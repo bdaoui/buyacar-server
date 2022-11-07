@@ -48,19 +48,31 @@ router.get("/verify", (req, res) => {
 
 
 router.get("/number", (req, res) => {
-  'Getting Number for Admin'
+  console.log('Getting Number for Admin')
   
   Admin.find()
-    .then(response => response.number)
+    .then(response => 
+      {
+        res.status(200).json(response[0].number) })
     .catch(err => console.log(err))
 
 })
 
 router.put("/number", (req, res) => {
-  "Editing Number for Admin"
+  console.log("Editing Number for Admin")
+  console.log(req.body)
 
-  Admin.updateOne({}, {number: number})
-  .then(response  => res.status(200).json("Admin Number Changed") )
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const phone = Object.keys(obj)
+
+
+  Admin.findByIdAndUpdate({_id: "63624e2493a42858e2f4a935"},
+    {number: phone[0]}
+    )
+  .then(response  => {
+    console.log(response)
+
+    res.status(200).json("Admin Number Changed") })
   .catch(err => console.log(err))
 
 })
