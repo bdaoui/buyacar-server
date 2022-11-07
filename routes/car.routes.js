@@ -165,7 +165,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
       description: validDescription,
       image: check.image,
     })
-      .then((response) => res.status(200).json("Voiture modifiée"))
+      .then((response) => res.status(200).json("Voiture Modifiée"))
       .catch((err) => console.log(err));
   });
   
@@ -177,7 +177,7 @@ router.put("/:id", uploadCloud.array("image", 10), async (req, res) => {
     const { id } = req.params;
   
     Cars.deleteOne({ _id: id })
-      .then((response) => res.status(200).json("Item Deleted"))
+      .then((response) => res.status(200).json("Voiture Supprimé"))
       .catch((err) => console.log(err));
   });
 
@@ -205,7 +205,7 @@ router.put("/:id/image", async (req, res) => {
       .catch((err) => console.log(err));
   
     Cars.updateOne({ _id: id }, { image: filteredImages })
-      .then((response) => res.status(200).json("Image Deleted"))
+      .then((response) => res.status(200).json("Image Supprimé"))
       .catch((err) => console.log(err));
   });
   
@@ -216,7 +216,7 @@ router.put("/:id/image", async (req, res) => {
     emptyArray = [];
   
     Cars.updateOne({ _id: id }, { image: emptyArray })
-      .then((response) => res.status(200).json("All Images Deleted"))
+      .then((response) => res.status(200).json("Toutes les photos Supprimé"))
       .catch((err) => console.log(err));
   });
 

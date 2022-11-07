@@ -87,7 +87,7 @@ router.get("/", (req, res) => {
     const { id } = req.params;
   
     ContactForm.deleteOne({ _id: id })
-      .then((response) => res.status(200).json("Item Deleted"))
+      .then((response) => res.status(200).json("Article Supprimé"))
       .catch((err) => console.log(err));
   });
 
