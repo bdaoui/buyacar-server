@@ -43,4 +43,40 @@ router.get("/verify", (req, res) => {
   res.status(200).json(req.payload);
 });
 
+
+// Display and Change the Number in Footer
+
+
+router.get("/number", (req, res) => {
+  console.log('Getting Number for Admin')
+  
+  Admin.find()
+    .then(response => 
+      {
+        res.status(200).json(response[0].number) })
+    .catch(err => console.log(err))
+
+})
+
+router.put("/number", (req, res) => {
+  console.log("Editing Number for Admin")
+  console.log(req.body)
+
+  const obj = JSON.parse(JSON.stringify(req.body));
+  const phone = Object.keys(obj)
+
+
+  Admin.findByIdAndUpdate({_id: "63624e2493a42858e2f4a935"},
+    {number: phone[0]}
+    )
+  .then(response  => {
+    console.log(response)
+
+    res.status(200).json("Admin Number Changed") })
+  .catch(err => console.log(err))
+
+})
+
+
+
 module.exports = router;
