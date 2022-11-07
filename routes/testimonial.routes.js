@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
     const { body, author } = req.body;
   
     Testimonial.create({ author, body })
-      .then((response) => res.status(200).json("Témoignage Créer"))
+      .then((response) => res.status(200).json("Message Crée"))
       .catch((err) => console.log(err));
   });
   
@@ -41,7 +41,7 @@ router.get("/", (req, res) => {
       .catch((err) => console.log(err));
   
     Testimonial.findByIdAndUpdate(id, { author: validAuthor, body: validBody })
-      .then((response) => res.status(200).json("Témoignage Modifiée"))
+      .then((response) => res.status(200).json("Message Modifiée"))
       .catch((err) => console.log(err));
   });
   

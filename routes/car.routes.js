@@ -57,7 +57,7 @@ router.get("/", (req, res) => {
       transmission,
       image,
       year,
-    }).then((response) => res.status(200).json("Voiture Créer"));
+    }).then((response) => res.status(200).json("Voiture Crées"));
   });
   
   // Get All BestDeal
@@ -205,7 +205,7 @@ router.put("/:id/image", async (req, res) => {
       .catch((err) => console.log(err));
   
     Cars.updateOne({ _id: id }, { image: filteredImages })
-      .then((response) => res.status(200).json("Image Supprimé"))
+      .then((response) => res.status(200).json("Photo Supprimé"))
       .catch((err) => console.log(err));
   });
   
@@ -216,7 +216,7 @@ router.put("/:id/image", async (req, res) => {
     emptyArray = [];
   
     Cars.updateOne({ _id: id }, { image: emptyArray })
-      .then((response) => res.status(200).json("Toutes les photos Supprimé"))
+      .then((response) => res.status(200).json("Photos Supprimé"))
       .catch((err) => console.log(err));
   });
 
