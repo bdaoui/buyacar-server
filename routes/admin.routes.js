@@ -53,7 +53,7 @@ router.get("/number", (req, res) => {
 
 
   Admin.findById(id)
-    .then(response => res.status(200).json(response[0].number) )
+    .then(response => res.status(200).json(response.number) )
     .catch(err => console.log(err))
 
 })
