@@ -65,7 +65,10 @@ router.get("/", (req, res) => {
     console.log("Requesting Best Deals");
   
     Cars.find({ bestDeal: "yes" })
-      .then((response) => res.status(200).json(response))
+      .then((response) => {
+        console.log("This is a List with the BestDeal Response ", response)
+        res.status(200).json(response)}
+        )
       .catch((err) => console.log(err));
   });
   
