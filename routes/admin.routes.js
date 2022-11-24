@@ -31,7 +31,7 @@ router.post("/login", (req, res) => {
           algorithm: "HS256",
           expiresIn: "2h",
         });
-        res.status(200).json("Se connecter...");
+        res.status(200).json({authToken : authToken});
       } else {
         res.status(400).json("Données incorrectes");
       }
