@@ -53,7 +53,9 @@ router.get("/number", (req, res) => {
 
 
   Admin.findById(id)
-    .then(response => res.status(200).json(response.number) )
+    .then(response => {
+      console.log("this is a response to Admin.FindByID ", response)
+      res.status(200).json(response.number) })
     .catch(err => console.log(err))
 
 })
