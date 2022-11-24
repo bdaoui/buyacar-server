@@ -49,11 +49,11 @@ router.get("/verify", (req, res) => {
 
 router.get("/number", (req, res) => {
   console.log('Getting Number for Admin')
-  
-  Admin.find()
-    .then(response => 
-      {
-        res.status(200).json(response[0].number) })
+  const id = "63624e2493a42858e2f4a935"
+
+
+  Admin.findById(id)
+    .then(response => res.status(200).json(response[0].number) )
     .catch(err => console.log(err))
 
 })
